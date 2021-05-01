@@ -1,5 +1,5 @@
 {
-  "name": "06-Node-restService",
+  "name": "08-Node-User-products",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -9,18 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GonzaloRocha-98/06-Node-restService.git"
+    "url": "git+https://github.com/GonzaloRocha-98/08-Node-User-products.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GonzaloRocha-98/06-Node-restService/issues"
+    "url": "https://github.com/GonzaloRocha-98/08-Node-User-products/issues"
   },
-  "homepage": "https://github.com/GonzaloRocha-98/06-Node-restService#readme",
+  "homepage": "https://github.com/GonzaloRocha-98/08-Node-User-products#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.12.7",
     "morgan": "^1.10.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
