@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/user');
+const UserServices = require('../services/userServices')
 
 /**
  * 
@@ -9,7 +9,7 @@ const User = require('../models/user');
 
 const getAllUsers = async (req, res, next) => {  //tambien se podría usar (req = Request, res = Response)
   try {
-    const user = await User.find();    
+    const user = await UserServices.findAll();    
       res.json(user);
     
   } catch (error) {
@@ -28,7 +28,7 @@ const getAllUsers = async (req, res, next) => {  //tambien se podría usar (req 
 const createUser = async (req, res, next) => {
   try {
     let user = req.body;
-    user = await User.create(user);
+    user = await UserServices.save(user);
   
     user.id = 86543;
     const result = {
@@ -57,7 +57,7 @@ const updateUser = async (req, res, next) => {
     let user = req.body;
     user.id = id;
     
-    await User.updateOne(user);
+    await UserServices.update(user);
   
     const result = {
       message: 'User updated',
@@ -78,20 +78,18 @@ const updateUser = async (req, res, next) => {
  * @param {express.Response} res 
  */
 
-const updatePartialUser = (req, res, next) => {
-  const user = {
-    id: 45,
-    name : 'Toto',
-  };
-  const {id} = req.params;
-  if(id == user.id){
-    user.name = req.body.name;
+const getUser = (req, res, next) => {
+  try {
+    let {id} = req.params;
+    const result = {
+      user: UserServices.findById(id)
+    };
+    res.json(result);
+    
+  } catch (error) {
+    next(error)
   }
-  const result = {
-    message: 'User updated with patch',
-    user
-  };
-  res.json(result);
+  
 };
 
 
@@ -105,7 +103,7 @@ const deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
     //const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await UserServices.findById(id);
     user.remove();
   
     const result = {
@@ -121,7 +119,7 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
     getAllUsers,
     createUser,
-    updatePartialUser,
+    getUser,
     updateUser,
     deleteUser,
 }

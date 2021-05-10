@@ -3,7 +3,7 @@ const {
     getAllUsers, 
     createUser, 
     updateUser, 
-    updatePartialUser, 
+    getUser, 
     deleteUser
     } = require('../controllers/users');
 const router = Router();
@@ -11,7 +11,7 @@ const router = Router();
 router.get('/', getAllUsers);
 router.post('/', createUser);
 router.put('/:id', updateUser);
-router.patch('/:id', updatePartialUser);
+router.patch('/:id', getUser);
 router.delete('/:id', deleteUser);
 
 module.exports = router;
