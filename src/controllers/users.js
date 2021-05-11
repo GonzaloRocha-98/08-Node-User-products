@@ -1,6 +1,6 @@
 const express = require('express');
 const UserServices = require('../services/userServices')
-
+const Success = require('../handlers/successHandler');
 /**
  * 
  * @param {express.Request} req 
@@ -9,8 +9,8 @@ const UserServices = require('../services/userServices')
 
 const getAllUsers = async (req, res, next) => {  //tambien se podría usar (req = Request, res = Response)
   try {
-    const user = await UserServices.findAll();    
-      res.json(user);
+    const user = await UserServices.findAll(req.query.filter, req.query.options);    
+      res.json(new Success(user));
     
   } catch (error) {
     next(error)
@@ -29,14 +29,8 @@ const createUser = async (req, res, next) => {
   try {
     let user = req.body;
     user = await UserServices.save(user);
-  
-    user.id = 86543;
-    const result = {
-      message: 'User created',
-      user
-    }
-  
-    res.status(201).json(result);
+
+    res.status(201).json(new Success(user));
     
   } catch (error) {
     next(error)
@@ -53,18 +47,12 @@ const createUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    let {id} = req.params;
     let user = req.body;
-    user.id = id;
     
-    await UserServices.update(user);
-  
-    const result = {
-      message: 'User updated',
-      user,
-    };  
+    const userUpdated = await UserServices.update(id, user);
 
-    res.json(result);
+    res.json(new Success(userUpdated));
     
   } catch (error) {
     next(error)
@@ -78,13 +66,11 @@ const updateUser = async (req, res, next) => {
  * @param {express.Response} res 
  */
 
-const getUser = (req, res, next) => {
+const getUser = async (req, res, next) => {
   try {
     let {id} = req.params;
-    const result = {
-      user: UserServices.findById(id)
-    };
-    res.json(result);
+    const user = await UserServices.findById(id)
+    res.json(new Success(user));
     
   } catch (error) {
     next(error)

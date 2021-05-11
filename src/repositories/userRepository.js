@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const bcrypt = require('bcrypt');
 class UserRepository{
     constructor(){
 
@@ -9,11 +9,15 @@ class UserRepository{
         return await User.find();
     }
 
+    async findAllWithPagination(filter, options){
+        return await User.paginate(filter, options)
+    }
     async findById(id){
-        return await User.findById();
+        return await User.findById(id);
     }
 
     async save(user){
+        user.password = await bcrypt.hash(user.password, 10);          //10 is a saltRound (las veces que itera para realizar el hashing?)
         return await User.create(user);
     }
 
