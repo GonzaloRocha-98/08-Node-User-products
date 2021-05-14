@@ -16,6 +16,10 @@ class UserRepository{
         return await User.findById(id);
     }
 
+    async findByEmail(email){
+        return await User.findOne({email:email})            // nos permite buscar un item mediante el objeto que le pasamos
+    }
+
     async save(user){
         user.password = await bcrypt.hash(user.password, 10);          //10 is a saltRound (las veces que itera para realizar el hashing?)
         return await User.create(user);

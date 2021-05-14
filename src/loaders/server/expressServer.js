@@ -54,7 +54,8 @@ class ExpressServer{
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    data: err.data              //el parametro data que enviamos a la clase AppError
                 }
             }
             res.json(body);
