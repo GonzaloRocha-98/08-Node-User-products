@@ -1,6 +1,8 @@
 const express = require('express');
 const UserServices = require('../services/userServices')
-const Success = require('../handlers/successHandler');
+const Success = require('../handlers/successHandler')
+const logger = require('../loaders/logger');
+
 /**
  * 
  * @param {express.Request} req 

@@ -5,9 +5,9 @@ class UserRepository{
 
     };
 
-    async findAll(){
+    /*async findAll(){
         return await User.find();
-    }
+    }*/
 
     async findAllWithPagination(filter, options){
         return await User.paginate(filter, options)

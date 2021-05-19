@@ -1,7 +1,8 @@
 const userService = require('../../services/userServices');
+const logger = require('../../loaders/logger')
 const {check, validationResult} = require('express-validator');
 const AppError = require('../../errors/appError');
-const {ROLES} = require('../../constants/index');
+const {ROLES, FILTERS} = require('../../constants/index');
 
 const _nameRequired = check('name', 'Name required').not().isEmpty();
 const _lastNameRequired = check('lastName', 'Last Name required').not().isEmpty();
@@ -78,8 +79,38 @@ const putRequestValidations = [
     _validationResult
 ]
 
-//agregar validaciones ar el delete y el get
+
+
+const _optionalFilterValid = check('filter').optional().custom(
+    async (filter = {}) => {
+        const keys = Object.keys(filter);
+        if(!keys.every(e => FILTERS.includes(e))){
+            throw new AppError('Some filter is invalid', 400)
+        }
+    });
+
+
+const getAllUsersRequestValidations = [
+    _optionalFilterValid,
+    _validationResult
+]
+
+const getUserRequestValidations = [
+    _idRequired,
+    _idIsMongoDB,
+    _idExist
+]
+
+const deleteRequestValidations = [
+    _idRequired,
+    _idIsMongoDB,
+    _idExist
+]
+
 module.exports = {
     postRequestValidations,
-    putRequestValidations
+    putRequestValidations,
+    getAllUsersRequestValidations,
+    getUserRequestValidations,
+    deleteRequestValidations
 }
