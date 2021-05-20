@@ -1,8 +1,10 @@
 const userService = require('../../services/userServices');
 const logger = require('../../loaders/logger')
-const {check, validationResult} = require('express-validator');
+const {check} = require('express-validator');
 const AppError = require('../../errors/appError');
 const {ROLES, FILTERS} = require('../../constants/index');
+const {_validationResult} = require('../commons');
+
 
 const _nameRequired = check('name', 'Name required').not().isEmpty();
 const _lastNameRequired = check('lastName', 'Last Name required').not().isEmpty();
@@ -27,14 +29,6 @@ const _roleValid = check('role').optional().custom(
 );
 const _dateValid = check('birthDate').optional().isDate('MM-DD-YYYY');
 
-
-const _validationResult = (req, res, next)=> {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        throw new AppError('Validation errors:', 400, errors.errors);    //error 400 xq hay un error del usuario al ingresar los campos
-    }
-    next();                     //para que siga el flujo de la app
-}
 
 const postRequestValidations = [
     _nameRequired,
@@ -98,13 +92,15 @@ const getAllUsersRequestValidations = [
 const getUserRequestValidations = [
     _idRequired,
     _idIsMongoDB,
-    _idExist
+    _idExist,
+    _validationResult
 ]
 
 const deleteRequestValidations = [
     _idRequired,
     _idIsMongoDB,
-    _idExist
+    _idExist,
+    _validationResult
 ]
 
 module.exports = {
