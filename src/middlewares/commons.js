@@ -10,5 +10,5 @@ const _validationResult = (req, res, next)=> {
 }
 
 module.exports = {
-    _validationResult
+    validationResult: _validationResult
 }

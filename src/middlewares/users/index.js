@@ -1,9 +1,9 @@
 const userService = require('../../services/userServices');
-const logger = require('../../loaders/logger')
 const {check} = require('express-validator');
 const AppError = require('../../errors/appError');
-const {ROLES, FILTERS} = require('../../constants/index');
-const {_validationResult} = require('../commons');
+const {ROLES, ADMIN_ROLE, FILTERS} = require('../../constants/index');
+const {validationResult} = require('../commons');
+const {validJWT, hasRole} = require('../auth');
 
 
 const _nameRequired = check('name', 'Name required').not().isEmpty();
@@ -31,6 +31,8 @@ const _dateValid = check('birthDate').optional().isDate('MM-DD-YYYY');
 
 
 const postRequestValidations = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _nameRequired,
     _lastNameRequired,
     _emailRequired,
@@ -39,7 +41,7 @@ const postRequestValidations = [
     _passwordRequired,
     _roleValid,
     _dateValid,
-    _validationResult
+    validationResult
 ]
 
 const _optionalEmailType = check('email', 'Email is invalid').optional().isEmail();
@@ -56,13 +58,15 @@ const _idIsMongoDB = check('id').isMongoId();       // verifica que sea un id de
 const _idExist = check('id').custom(
     async (id = '') => {
         const userFound = await userService.findById(id);
-        if(userFound){
+        if(!userFound){
             throw new AppError('The id is not exist', 400);
         }
     }
 );
 
 const putRequestValidations = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _idRequired,
     _idIsMongoDB,
     _idExist,
@@ -70,7 +74,7 @@ const putRequestValidations = [
     _optionalEmailType,
     _roleValid,
     _dateValid,
-    _validationResult
+    validationResult
 ]
 
 
@@ -85,22 +89,26 @@ const _optionalFilterValid = check('filter').optional().custom(
 
 
 const getAllUsersRequestValidations = [
+    validJWT,
     _optionalFilterValid,
-    _validationResult
+    validationResult
 ]
 
 const getUserRequestValidations = [
+    validJWT,
     _idRequired,
     _idIsMongoDB,
     _idExist,
-    _validationResult
+    validationResult
 ]
 
 const deleteRequestValidations = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _idRequired,
     _idIsMongoDB,
     _idExist,
-    _validationResult
+    validationResult
 ]
 
 module.exports = {
