@@ -9,4 +9,4 @@ const router = Router();
 router.post('/login', postLoginRequestValidations, login);
 
 
-module.exports = router;
+module.exports = router;  

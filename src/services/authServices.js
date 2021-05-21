@@ -34,8 +34,8 @@ const login = async(email, password, next) => {
             role: user.role
         }
 
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw err;
     }
 }
 

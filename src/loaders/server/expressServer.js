@@ -60,7 +60,7 @@ class ExpressServer{
                     data: err.data              //el parametro data que enviamos a la clase AppError
                 }
             }
-            res.json(body);
+            res.status(code).json(body);
         })
     }
 
