@@ -26,7 +26,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Password required'],
   },
-  rol: {
+  role: {
     type: String,
     required: true,
     default: 'USER_ROLE',
@@ -42,5 +42,4 @@ const userSchema = new Schema({
 );
 userSchema.plugin(uniqueValidator, {message: ' already exists on the DB'})
 userSchema.plugin(mongoosePaginate);
-
 module.exports = mongoose.model('users', userSchema);

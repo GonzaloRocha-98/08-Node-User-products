@@ -1,6 +1,8 @@
 const express = require('express');
 const UserServices = require('../services/userServices')
-const Success = require('../handlers/successHandler');
+const Success = require('../handlers/successHandler')
+const logger = require('../loaders/logger');
+
 /**
  * 
  * @param {express.Request} req 
@@ -92,10 +94,7 @@ const deleteUser = async (req, res, next) => {
     const user = await UserServices.findById(id);
     user.remove();
   
-    const result = {
-      message: `User with id: ${id} deleted`
-    }
-    res.json(result);
+    res.json(new Success(user));
     
   } catch (error) {
     next(error)
