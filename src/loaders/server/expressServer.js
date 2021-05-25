@@ -1,5 +1,6 @@
 //configuracion de como levantar express
 
+const path = require('path');
 const express = require('express')
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -12,7 +13,8 @@ class ExpressServer{
     constructor(){
         this.app = express();
         this.port = config.port;
-        this.basePath = config.api.prefix;
+        this.basePathUsers = `${config.api.prefix}/users`;
+        this.basePathAuth = `${config.api.prefix}/auth`;
         this._middlewares();
         this._swaggerConfig();
         this._routes();
@@ -31,7 +33,12 @@ class ExpressServer{
             res.status(200).end();
         })    //ruta para verificar que la app esta viva 
 
-        this.app.use(`${this.basePath}/users`, require('../../routes/users'));
+        this.app.get("/tests", (req, res) => {
+            res.sendFile(path.join(__dirname + '../../../../postman/report.html'));
+        })
+
+        this.app.use(this.basePathUsers, require('../../routes/users'));
+        this.app.use(this.basePathAuth, require('../../routes/auth'));
     }
 
     //.use es un middleware asi que va a ejecutar en medio de cuaquier cosa
@@ -54,10 +61,11 @@ class ExpressServer{
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    data: err.data              //el parametro data que enviamos a la clase AppError
                 }
             }
-            res.json(body);
+            res.status(code).json(body);
         })
     }
 

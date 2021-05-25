@@ -5,15 +5,19 @@ class UserRepository{
 
     };
 
-    async findAll(){
+    /*async findAll(){
         return await User.find();
-    }
+    }*/
 
     async findAllWithPagination(filter, options){
         return await User.paginate(filter, options)
     }
     async findById(id){
         return await User.findById(id);
+    }
+
+    async findByEmail(email){
+        return await User.findOne({email:email})            // nos permite buscar un item mediante el objeto que le pasamos
     }
 
     async save(user){
