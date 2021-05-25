@@ -461,8 +461,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
 									"});\r",
 									"pm.test(\"Status code is not 200\", function () {\r",
 									"    pm.response.to.not.have.status(200);\r",
@@ -483,8 +483,6 @@
 									"    pm.expect(jsonData.error.code).to.be.an('number');\r",
 									"    pm.expect(jsonData.error).to.have.property('message');\r",
 									"    pm.expect(jsonData.error.message).to.be.an('string');\r",
-									"    pm.expect(jsonData.error).to.have.property('data');\r",
-									"    pm.expect(jsonData.error.data).to.be.an('array');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -575,7 +573,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTYyODQyNSwiZXhwIjoxNjIxNzE0ODI1fQ.bHY915Bx5iQNpAINXufBTTBaOizTLjQCziPoceaywkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTgwNTkwNSwiZXhwIjoxNjIxODkyMzA1fQ.f2cGFf1IIPD17cvu0C6AOXWfDQ-LbF1mdFhue5luuDw",
 								"type": "text"
 							}
 						],
@@ -654,7 +652,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTYyODQyNSwiZXhwIjoxNjIxNzE0ODI1fQ.bHY915Bx5iQNpAINXufBTTBaOizTLjQCziPoceaywkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTgwNTkwNSwiZXhwIjoxNjIxODkyMzA1fQ.f2cGFf1IIPD17cvu0C6AOXWfDQ-LbF1mdFhue5luuDw",
 								"type": "text"
 							}
 						],
@@ -737,7 +735,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTYyODQyNSwiZXhwIjoxNjIxNzE0ODI1fQ.bHY915Bx5iQNpAINXufBTTBaOizTLjQCziPoceaywkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTgwNTkwNSwiZXhwIjoxNjIxODkyMzA1fQ.f2cGFf1IIPD17cvu0C6AOXWfDQ-LbF1mdFhue5luuDw",
 								"type": "text"
 							}
 						],
@@ -823,7 +821,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTYyODQyNSwiZXhwIjoxNjIxNzE0ODI1fQ.bHY915Bx5iQNpAINXufBTTBaOizTLjQCziPoceaywkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTgwNTkwNSwiZXhwIjoxNjIxODkyMzA1fQ.f2cGFf1IIPD17cvu0C6AOXWfDQ-LbF1mdFhue5luuDw",
 								"type": "text"
 							}
 						],
@@ -906,7 +904,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTYyODQyNSwiZXhwIjoxNjIxNzE0ODI1fQ.bHY915Bx5iQNpAINXufBTTBaOizTLjQCziPoceaywkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTY4YjM5OWIyMjA3MzIzMDU0NjRjMiIsImlhdCI6MTYyMTgwNTkwNSwiZXhwIjoxNjIxODkyMzA1fQ.f2cGFf1IIPD17cvu0C6AOXWfDQ-LbF1mdFhue5luuDw",
 								"type": "text"
 							}
 						],

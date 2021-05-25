@@ -1,5 +1,6 @@
 //configuracion de como levantar express
 
+const path = require('path');
 const express = require('express')
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
@@ -31,6 +32,10 @@ class ExpressServer{
         this.app.head("/status", (req,res) => {
             res.status(200).end();
         })    //ruta para verificar que la app esta viva 
+
+        this.app.get("/tests", (req, res) => {
+            res.sendFile(path.join(__dirname + '../../../../postman/report.html'));
+        })
 
         this.app.use(this.basePathUsers, require('../../routes/users'));
         this.app.use(this.basePathAuth, require('../../routes/auth'));
